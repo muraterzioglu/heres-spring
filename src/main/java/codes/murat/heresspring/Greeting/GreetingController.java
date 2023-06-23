@@ -1,4 +1,4 @@
-package codes.murat.heresspring;
+package codes.murat.heresspring.Greeting;
 
 import java.util.concurrent.atomic.AtomicLong;
 
