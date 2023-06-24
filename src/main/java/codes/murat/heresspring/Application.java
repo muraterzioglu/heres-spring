@@ -1,6 +1,6 @@
 package codes.murat.heresspring;
 
-import codes.murat.heresspring.Configs.SimpleConfigs;
+import codes.murat.heresspring.AppConfigs.SimpleConfigs;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;

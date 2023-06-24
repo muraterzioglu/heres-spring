@@ -1,4 +1,4 @@
-package codes.murat.heresspring.Configs;
+package codes.murat.heresspring.AppConfigs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
