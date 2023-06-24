@@ -1,9 +1,12 @@
 package codes.murat.heresspring.Controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import codes.murat.heresspring.Entities.Greeting;
 import codes.murat.heresspring.Services.GreetingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,15 +21,17 @@ public class GreetingController {
     }
 
     @GetMapping("")
-    public Map<Long, String> greeting(@RequestParam(value = "id", defaultValue = "0") long id) {
-        if (id > 0) {
-            return service.getGreeting(id);
-        }
-        return service.getGreeting();
+    public ResponseEntity<List<Greeting>> greeting() {
+        return service.getGreetings();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Greeting> getTutorialById(@PathVariable("id") long id) {
+        return service.getGreetingById(id);
     }
 
     @PostMapping("")
-    public Map<Long, String> postGreeting(@RequestParam(value = "content", defaultValue = "Hello World!") String content) {
-        return service.postGreeting(counter.incrementAndGet(), content);
+    public ResponseEntity<Greeting> postGreeting(@RequestBody Greeting greeting) {
+        return service.addGreeting(greeting);
     }
 }

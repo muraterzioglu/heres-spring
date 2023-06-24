@@ -1,34 +1,39 @@
 package codes.murat.heresspring.Services;
 
+import codes.murat.heresspring.Entities.Greeting;
+import codes.murat.heresspring.Repositories.GreetingRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 @Service
 @AllArgsConstructor
 public class GreetingService {
 
-    private static final Map<Long, String> greetings = new HashMap<Long, String>();
+    GreetingRepository greetingRepository;
 
-    public Map<Long, String > getGreeting() {
-        return greetings;
+    public ResponseEntity<List<Greeting>> getGreetings() {
+        List<Greeting> greetings = new ArrayList<>(greetingRepository.findAll());
+
+        return new ResponseEntity<>(greetings, HttpStatus.OK);
     }
 
-    public Map<Long, String > getGreeting(long id) {
-        HashMap<Long, String> specificContent = new HashMap<Long, String>();
-        specificContent.put(id, greetings.get(id));
+    public ResponseEntity<Greeting> getGreetingById(long id) {
+        Greeting greeting = greetingRepository.findById(id).orElse(null);
 
-        return specificContent;
+        return new ResponseEntity<>(greeting, HttpStatus.OK);
     }
 
-    public Map<Long, String> postGreeting(long id, String content) {
-        HashMap<Long, String> newContent = new HashMap<Long, String>();
-        newContent.put(id, content);
+    public ResponseEntity<Greeting> addGreeting(Greeting greeting) {
+        greetingRepository.save(new Greeting(greeting.getMessage(), greeting.isActive()));
 
-        greetings.put(id, content);
-
-        return newContent;
+        return new ResponseEntity<>(greeting, HttpStatus.OK);
     }
 }
