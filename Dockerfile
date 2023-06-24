@@ -13,6 +13,6 @@ FROM spring-boot-base AS spring-boot-build
 WORKDIR /app
 COPY . .
 ## Install Dependencies
-RUN mvn clean install -DskipTests
+RUN mvn -Pprod clean install -DskipTests
 ## Run
 CMD ["java", "-jar", "target/heres-spring-0.0.1-SNAPSHOT.jar"]
